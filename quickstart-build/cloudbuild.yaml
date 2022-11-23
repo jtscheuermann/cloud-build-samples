@@ -15,7 +15,8 @@
 # [START cloudbuild_quickstart_build]
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-f', 'Dockerfile', '-t', 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag1', '.' ]
+  dir: 'quickstart-build/'
+  args: [ 'build', '-t', 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag1', '.' ]
 images:
 - 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag1'
 # [END cloudbuild_quickstart_build]
