@@ -14,12 +14,13 @@
 
 # [START cloudbuild_quickstart_build]
 steps:
-   - id: create AR
-     name: gcr.io/cloud-builders/gcloud
-     entrypoint: /bin/bash
-     args:
-     - -c
-     - gcloud artifacts repositories list
+    - id: create AR
+      name: gcr.io/cloud-builders/gcloud
+      entrypoint: /bin/bash
+      args:
+      - -c
+      - |
+        gcloud artifacts repositories list
     - id: bash sample
       name: bash
       script: |
