@@ -26,10 +26,10 @@ steps:
     print('hello from python')
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'quickstart-build/'
-  args: [ 'build', '-t', 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag2', '.' ]
+  args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/quickstart-docker-repo/quickstart-image:$SHORT_SHA', '.' ]
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'quickstart-build/'
-  args: [ 'push', 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag2']
+  args: [ 'push', 'us-central1-docker.pkg.dev/$PROJECT_ID/quickstart-docker-repo/quickstart-image:$SHORT_SHA']
 # images:
 # - 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag1'
 # [END cloudbuild_quickstart_build]
