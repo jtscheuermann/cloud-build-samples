@@ -14,9 +14,22 @@
 
 # [START cloudbuild_quickstart_build]
 steps:
+- name: bash
+  script: |
+    #!/usr/bin/env bash
+    echo "Hello World"
+- name: ubuntu
+  script: echo hello
+- name: python
+  script: |
+    #!/usr/bin/env python
+    print('hello from python')
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'quickstart-build/'
-  args: [ 'build', '-t', 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag1', '.' ]
-images:
-- 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag1'
+  args: [ 'build', '-t', 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag2', '.' ]
+- name: 'gcr.io/cloud-builders/docker'
+  dir: 'quickstart-build/'
+  args: [ 'push', 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag2']
+# images:
+# - 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag1'
 # [END cloudbuild_quickstart_build]
