@@ -21,36 +21,37 @@ steps:
       - -c
       - |
         gcloud auth list --format="value(ACCOUNT)" --filter="status~ACTIVE"
-    # - id: create AR
-    #   name: gcr.io/cloud-builders/gcloud
-    #   entrypoint: /bin/bash
-    #   args:
-    #   - -c
-    #   - |
-    #     gcloud artifacts repositories create dynamic-docker-repo --repository-format=docker \
-    #     --location=us-central1 --description="Docker repository"
-    - id: bash sample
-      name: bash
-      script: |
-        #!/usr/bin/env bash
-        whoami
-    - id: ubuntu sample
-      name: ubuntu
-      script: echo hello
-options:
-  logging: CLOUD_LOGGING_ONLY
+    - id: create AR
+      name: gcr.io/cloud-builders/gcloud
+      entrypoint: /bin/bash
+      args:
+      - -c
+      - |
+        gcloud artifacts repositories create dynamic-docker-repo --repository-format=docker \
+        --location=us-central1 --description="Docker repository"
+    # - id: bash sample
+    #   name: bash
+    #   script: |
+    #     #!/usr/bin/env bash
+    #     whoami
+    # - id: ubuntu sample
+    #   name: ubuntu
+    #   script: echo hello
+
     # - name: python
     #   script: |
     #     #!/usr/bin/env python
     #     print('hello from python')
-    # - id: image build
-    #   name: 'gcr.io/cloud-builders/docker'
-    #   dir: 'quickstart-build/'
-    #   args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:$SHORT_SHA', '.' ]
-    # - id: image push
-    #   name: 'gcr.io/cloud-builders/docker'
-    #   dir: 'quickstart-build/'
-    #   args: [ 'push', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:$SHORT_SHA']
+    - id: image build
+      name: 'gcr.io/cloud-builders/docker'
+      dir: 'quickstart-build/'
+      args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:$SHORT_SHA', '.' ]
+    - id: image push
+      name: 'gcr.io/cloud-builders/docker'
+      dir: 'quickstart-build/'
+      args: [ 'push', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:$SHORT_SHA']
+options:
+  logging: CLOUD_LOGGING_ONLY
 # images:
 # - 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag1'
 # [END cloudbuild_quickstart_build]
