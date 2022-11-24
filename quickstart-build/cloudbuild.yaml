@@ -22,19 +22,19 @@ steps:
       - |
         gcloud auth list --format="value(ACCOUNT)" --filter="status~ACTIVE"
     # need to use SA that has Editor Role for this step
-    - id: create AR
-      name: gcr.io/cloud-builders/gcloud
-      entrypoint: /bin/bash
-      args:
-      - -c
-      - |
-        gcloud artifacts repositories create dynamic-docker-repo --repository-format=docker \
-        --location=us-central1 --description="Docker repository"
-    # - id: bash sample
-    #   name: bash
-    #   script: |
-    #     #!/usr/bin/env bash
-    #     whoami
+    # - id: create AR
+    #   name: gcr.io/cloud-builders/gcloud
+    #   entrypoint: /bin/bash
+    #   args:
+    #   - -c
+    #   - |
+    #     gcloud artifacts repositories create dynamic-docker-repo --repository-format=docker \
+    #     --location=us-central1 --description="Docker repository"
+    - id: bash list commit files
+      name: bash
+      script: |
+        #!/usr/bin/env bash
+        git diff-tree --no-commit-id --name-only -r 5d396e2338f9d7ceac95bef4051591ab9b0b578b
     # - id: ubuntu sample
     #   name: ubuntu
     #   script: echo hello

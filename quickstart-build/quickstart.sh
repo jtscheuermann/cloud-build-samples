@@ -14,5 +14,5 @@
 # limitations under the License.
 
 # [START cloudbuild_quickstart_build_sh]
-echo "Hello, JT! The time is $(date)."
+echo "Hello! The time is $(date)."
 # [END cloudbuild_quickstart_build_sh]
