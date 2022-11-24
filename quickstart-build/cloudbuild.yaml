@@ -36,7 +36,7 @@ steps:
       args:
         - -c
         - |
-          git diff-tree --no-commit-id --name-only -r 5d396e2338f9d7ceac95bef4051591ab9b0b578b
+          git config user.name
     - id: bash
       name: bash
       script: |
