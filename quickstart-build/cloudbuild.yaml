@@ -58,8 +58,8 @@ steps:
     #   name: 'gcr.io/cloud-builders/docker'
     #   dir: 'quickstart-build/'
     #   args: [ 'push', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:$SHORT_SHA']
-options:
-  logging: CLOUD_LOGGING_ONLY
+# options:
+#   logging: CLOUD_LOGGING_ONLY
 # images:
 # - 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag1'
 # [END cloudbuild_quickstart_build]
