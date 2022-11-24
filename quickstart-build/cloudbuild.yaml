@@ -31,8 +31,8 @@ steps:
     #     gcloud artifacts repositories create dynamic-docker-repo --repository-format=docker \
     #     --location=us-central1 --description="Docker repository"
     - id: git files changed
-      name: 'gcr.io/cloud-builders/git'
-      entrypoint: /bin/bash
+      name: gcr.io/cloud-builders/git
+      entrypoint: bash
       args:
         - -c
         - |
@@ -68,3 +68,5 @@ options:
 #     --location=us-central1 --description="Docker repository"
 
 # https://gist.github.com/jaketf/9ca9ae1d7fa114fa2652ec3b332d9c2d script that interrogates through files changed and issues a build
+
+# git config user.name
