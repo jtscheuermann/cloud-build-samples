@@ -37,6 +37,8 @@ steps:
     - id: ubuntu sample
       name: ubuntu
       script: echo hello
+options:
+  logging: CLOUD_LOGGING_ONLY
     # - name: python
     #   script: |
     #     #!/usr/bin/env python
