@@ -21,6 +21,7 @@ steps:
       - -c
       - |
         gcloud auth list --format="value(ACCOUNT)" --filter="status~ACTIVE"
+    # need to use SA that has Editor Role for this step
     - id: create AR
       name: gcr.io/cloud-builders/gcloud
       entrypoint: /bin/bash
