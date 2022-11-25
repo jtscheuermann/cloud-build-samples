@@ -21,7 +21,7 @@ steps:
       - -c
       - |
         gcloud auth list --format="value(ACCOUNT)" --filter="status~ACTIVE"
-    # need to use SA that has Editor Role for this step
+    # # need to use SA that has Editor Role for this step
     # - id: create AR
     #   name: gcr.io/cloud-builders/gcloud
     #   entrypoint: /bin/bash
@@ -30,22 +30,26 @@ steps:
     #   - |
     #     gcloud artifacts repositories create dynamic-docker-repo --repository-format=docker \
     #     --location=us-central1 --description="Docker repository"
+
+    # make the repo history more available
     - id: unshallow repo
       name: gcr.io/cloud-builders/git
       args: ['fetch', '--unshallow']
 
+    # get the list of files changed
     - id: git files changed
       name: gcr.io/cloud-builders/git
       entrypoint: bash
       args:
         - -c
         - |
-          git diff-tree --no-commit-id --name-only -r 5d396e2338f9d7ceac95bef4051591ab9b0b578b
+          git diff-tree --no-commit-id --name-only -r $COMMIT_SHA
     - id: bash
       name: bash
       script: |
         #!/usr/bin/env bash
         echo "jt bashing"
+
     # - id: ubuntu sample
     #   name: ubuntu
     #   script: echo hello
@@ -54,6 +58,8 @@ steps:
     #   script: |
     #     #!/usr/bin/env python
     #     print('hello from python')
+    
+    # # build image and push 
     # - id: image build
     #   name: 'gcr.io/cloud-builders/docker'
     #   dir: 'quickstart-build/'
@@ -62,16 +68,19 @@ steps:
     #   name: 'gcr.io/cloud-builders/docker'
     #   dir: 'quickstart-build/'
     #   args: [ 'push', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:$SHORT_SHA']
+
+
 # options:
-#   logging: CLOUD_LOGGING_ONLY
+  # logging: CLOUD_LOGGING_ONLY # turn on this when using a specific SA that is not cloud builder
 # images:
 # - 'us-central1-docker.pkg.dev/jt-terraform-abc/quickstart-docker-repo/quickstart-image:tag1'
 # [END cloudbuild_quickstart_build]
 
+
+# NOTES
 # gcloud artifacts repositories create quickstart-docker-repo --repository-format=docker \
 #     --location=us-central1 --description="Docker repository"
 
 # https://gist.github.com/jaketf/9ca9ae1d7fa114fa2652ec3b332d9c2d script that interrogates through files changed and issues a build
 
-# git config user.name
 # git log --name-only -n 1 HEAD~1..HEAD 
