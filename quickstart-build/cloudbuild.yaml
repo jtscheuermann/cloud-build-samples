@@ -36,7 +36,7 @@ steps:
       args:
         - -c
         - |
-          git config user.name
+          git log --name-only -n 1 HEAD~1..HEAD 
     - id: bash
       name: bash
       script: |
