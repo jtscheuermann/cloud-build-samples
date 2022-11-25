@@ -30,6 +30,10 @@ steps:
     #   - |
     #     gcloud artifacts repositories create dynamic-docker-repo --repository-format=docker \
     #     --location=us-central1 --description="Docker repository"
+    - id: unshallow repo
+      name: gcr.io/cloud-builders/git
+      args: ['fetch', '--unshallow']
+      
     - id: git files changed
       name: gcr.io/cloud-builders/git
       entrypoint: bash
