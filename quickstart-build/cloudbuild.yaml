@@ -33,14 +33,14 @@ steps:
     - id: unshallow repo
       name: gcr.io/cloud-builders/git
       args: ['fetch', '--unshallow']
-      
+
     - id: git files changed
       name: gcr.io/cloud-builders/git
       entrypoint: bash
       args:
         - -c
         - |
-          git log --name-only -n 1 HEAD~1..HEAD 
+          git config config user.name
     - id: bash
       name: bash
       script: |
@@ -74,3 +74,4 @@ steps:
 # https://gist.github.com/jaketf/9ca9ae1d7fa114fa2652ec3b332d9c2d script that interrogates through files changed and issues a build
 
 # git config user.name
+# git log --name-only -n 1 HEAD~1..HEAD 
