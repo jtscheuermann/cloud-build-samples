@@ -32,23 +32,23 @@ steps:
     #     --location=us-central1 --description="Docker repository"
 
     # make the repo history more available
-    - id: unshallow repo
-      name: gcr.io/cloud-builders/git
-      args: ['fetch', '--unshallow']
+    # - id: unshallow repo
+    #   name: gcr.io/cloud-builders/git
+    #   args: ['fetch', '--unshallow']
 
-    # get the list of files changed
-    - id: git files changed
-      name: gcr.io/cloud-builders/git
-      entrypoint: bash
-      args:
-        - -c
-        - |
-          git diff-tree --no-commit-id --name-only -r $COMMIT_SHA
-    - id: bash
-      name: bash
-      script: |
-        #!/usr/bin/env bash
-        echo "jt bashing"
+    # # get the list of files changed
+    # - id: git files changed
+    #   name: gcr.io/cloud-builders/git
+    #   entrypoint: bash
+    #   args:
+    #     - -c
+    #     - |
+    #       git diff-tree --no-commit-id --name-only -r $COMMIT_SHA
+    # - id: bash
+    #   name: bash
+    #   script: |
+    #     #!/usr/bin/env bash
+    #     echo "jt bashing"
 
     # - id: ubuntu sample
     #   name: ubuntu
@@ -59,15 +59,15 @@ steps:
     #     #!/usr/bin/env python
     #     print('hello from python')
     
-    # # build image and push 
-    # - id: image build
-    #   name: 'gcr.io/cloud-builders/docker'
-    #   dir: 'quickstart-build/'
-    #   args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:$SHORT_SHA', '.' ]
-    # - id: image push
-    #   name: 'gcr.io/cloud-builders/docker'
-    #   dir: 'quickstart-build/'
-    #   args: [ 'push', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:$SHORT_SHA']
+    # build image and push 
+    - id: image build
+      name: 'gcr.io/cloud-builders/docker'
+      dir: 'quickstart-build/'
+      args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:$SHORT_SHA', '.' ]
+    - id: image push
+      name: 'gcr.io/cloud-builders/docker'
+      dir: 'quickstart-build/'
+      args: [ 'push', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:$SHORT_SHA']
 
 
 # options:
