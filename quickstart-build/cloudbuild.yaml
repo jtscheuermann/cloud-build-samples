@@ -63,11 +63,15 @@ steps:
     - id: image build
       name: 'gcr.io/cloud-builders/docker'
       dir: 'quickstart-build/'
-      args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:$SHORT_SHA', '.' ]
+      args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:latest', '.' ]
     - id: image push
       name: 'gcr.io/cloud-builders/docker'
       dir: 'quickstart-build/'
-      args: [ 'push', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:$SHORT_SHA']
+      args: [ 'push', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:latest']
+    - id: image run
+      name: 'gcr.io/cloud-builders/docker'
+      dir: 'quickstart-build/'
+      args: [ 'run', 'us-central1-docker.pkg.dev/$PROJECT_ID/dynamic-docker-repo/quickstart-image:latest']
 
 
 # options:
@@ -84,3 +88,7 @@ steps:
 # https://gist.github.com/jaketf/9ca9ae1d7fa114fa2652ec3b332d9c2d script that interrogates through files changed and issues a build
 
 # git log --name-only -n 1 HEAD~1..HEAD 
+
+# gcloud builds submit --region=us-central1 --tag us-central1-docker.pkg.dev/jt-terraform-abc/dynamic-docker-repo/quickstart-image:latest
+
+# us-central1-docker.pkg.dev/jt-terraform-abc/dynamic-docker-repo/quickstart-image
